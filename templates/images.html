@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>XiuRen_图片站</title>
+</head>
+<body>
+    {% for item in data %}
+        <div style="text-align:center; width: 80%; margin: auto auto;">
+            <li style="list-style-type: none;">
+                <center>
+                    <p>
+                        <a href="?girl=", style="font-size: 30px; text-decoration: none">返回主页</a><br>
+                        <a>返回<a style="font-size: 18px; text-decoration: none" href="?girl={{ item.girl }}" alt="{{ item.title }}" title="{{ item.girl }}">&emsp;{{ item.girl }}&emsp;</a>主页</a>
+                        <br>
+                        <p style="font-size: 16px;">{{ item.profiles }}</p>
+
+{#                        <a>{{ item.title }}</a><br>#}
+{#                        <a href="?girl={{ item.girl }}" alt="{{ item.title }}" title="{{ item.title }}"></a>#}
+{#                        <a>{{ item.Up_time }}</a>#}
+                    </p>
+                </center>
+
+{#                <img style="height: 80%;" src="{{ item.domain }}{{ item.page_pic}}" alt="图片显示错误！请联系站长">#}
+                {% for image in item.images %}
+                    <a>
+                        <img border="2" src="{{ item.domain }}{{ image }}" alt="图片显示错误！请联系站长">
+                    </a>
+                {% endfor %}
+            </li>
+        </div>
+
+    {% endfor %}
+
+</body>
+</html>

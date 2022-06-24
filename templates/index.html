@@ -1,0 +1,248 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>XiuRen_图片站</title>
+
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="static/lib/init.css">
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			/*
+			 *  Simple image gallery. Uses default settings
+			 */
+
+			$('.fancybox').fancybox();
+
+			/*
+			 *  Different effects
+			 */
+
+			// Change title type, overlay closing speed
+			$(".fancybox-effects-a").fancybox({
+				helpers: {
+					title : {
+						type : 'outside'
+					},
+					overlay : {
+						speedOut : 0
+					}
+				}
+			});
+
+			// Disable opening and closing animations, change title type
+			$(".fancybox-effects-b").fancybox({
+				openEffect  : 'none',
+				closeEffect	: 'none',
+
+				helpers : {
+					title : {
+						type : 'over'
+					}
+				}
+			});
+
+			// Set custom style, close if clicked, change title type and overlay color
+			$(".fancybox-effects-c").fancybox({
+				wrapCSS    : 'fancybox-custom',
+				closeClick : true,
+
+				openEffect : 'none',
+
+				helpers : {
+					title : {
+						type : 'inside'
+					},
+					overlay : {
+						css : {
+							'background' : 'rgba(238,238,238,0.85)'
+						}
+					}
+				}
+			});
+
+			// Remove padding, set opening and closing animations, close if clicked and disable overlay
+			$(".fancybox-effects-d").fancybox({
+				padding: 0,
+
+				openEffect : 'elastic',
+				openSpeed  : 150,
+
+				closeEffect : 'elastic',
+				closeSpeed  : 150,
+
+				closeClick : true,
+
+				helpers : {
+					overlay : null
+				}
+			});
+
+			/*
+			 *  Button helper. Disable animations, hide close button, change title type and content
+			 */
+
+			$('.fancybox-buttons').fancybox({
+				openEffect  : 'none',
+				closeEffect : 'none',
+
+				prevEffect : 'none',
+				nextEffect : 'none',
+
+				closeBtn  : false,
+
+				helpers : {
+					title : {
+						type : 'inside'
+					},
+					buttons	: {}
+				},
+
+				afterLoad : function() {
+					this.title = 'Image ' + (this.index + 1) + ' of ' + this.group.length + (this.title ? ' - ' + this.title : '');
+				}
+			});
+
+
+			/*
+			 *  Thumbnail helper. Disable animations, hide close button, arrows and slide to next gallery item if clicked
+			 */
+
+			$('.fancybox-thumbs').fancybox({
+				prevEffect : 'none',
+				nextEffect : 'none',
+
+				closeBtn  : false,
+				arrows    : false,
+				nextClick : true,
+
+				helpers : {
+					thumbs : {
+						width  : 50,
+						height : 50
+					}
+				}
+			});
+
+			/*
+			 *  Media helper. Group items, disable animations, hide arrows, enable media and button helpers.
+			*/
+			$('.fancybox-media')
+				.attr('rel', 'media-gallery')
+				.fancybox({
+					openEffect : 'none',
+					closeEffect : 'none',
+					prevEffect : 'none',
+					nextEffect : 'none',
+
+					arrows : false,
+					helpers : {
+						media : {},
+						buttons : {}
+					}
+				});
+
+			/*
+			 *  Open manually
+			 */
+
+			$("#fancybox-manual-a").click(function() {
+				$.fancybox.open('1_b.jpg');
+			});
+
+			$("#fancybox-manual-b").click(function() {
+				$.fancybox.open({
+					href : 'iframe.html',
+					type : 'iframe',
+					padding : 5
+				});
+			});
+
+			$("#fancybox-manual-c").click(function() {
+				$.fancybox.open([
+					{
+						href : '1_b.jpg',
+						title : 'My title'
+					}, {
+						href : '2_b.jpg',
+						title : '2nd title'
+					}, {
+						href : '3_b.jpg'
+					}
+				], {
+					helpers : {
+						thumbs : {
+							width: 75,
+							height: 50
+						}
+					}
+				});
+			});
+
+
+		});
+	</script>
+	<style type="text/css">
+		.fancybox-custom .fancybox-skin {
+			box-shadow: 0 0 50px #222;
+		}
+
+		body {
+			max-width: 100%;
+			margin: 90px auto 0;
+		}
+		.top-banner {
+			background-color: #333;
+		}
+		h3 {
+			color: #333;
+			font-family: 'Microsoft Yahei';
+			font-size: 26px;
+		}
+	</style>
+</head>
+
+
+<body>
+    <div class="top-banner clearfix">
+        <div class="fl">
+            <a href="?girl=" target="_blank">&lt;&lt;返回主页 </a>
+        </div>
+    </div>
+    <br>
+    <div style="text-align:center; width: 80%; margin: 5px auto;">
+        <a href="?girl=", style="font-size: 30px;">返回主页</a>
+    </div>
+    <br>
+
+    {% for item in data %}
+        <div style="text-align:center; width: 80%; height:100%; margin: 20px auto;" onclick="this.style.width=20">
+            <li class="i_list list_n2" style="float: left; list-style-type: none; width: 18%; height:15%;">
+                <a href="?girl={{ item.girl }}&s_id={{ item.md5 }}" alt="{{ item.title }}" title="{{ item.title }}">
+                    <img border="2" src="{{ item.domain }}{{ item.page_pic}}" style="width: 65%;">
+                    <div class="postlist-imagenum">
+                        <span>
+                            <a href="?girl={{ item.girl }}">{{ item.girl }}
+                            </a>
+                            </span>
+                    </div>
+                </a>
+                <div class="case_info">
+                    <a href="?girl={{ item.girl }}&s_id={{ item.md5 }}" alt="{{ item.title }}" title="{{ item.title }}" style="height: 15%;">
+                        <div class="meta-title" style="font-size:15%; height: 15%; padding-bottom: 15px">{{ item.page_title }}</div>
+                    </a>
+                    <div class="meta-post" style="font-size:15%">
+                        <a href="?girl={{ item.girl }}&s_id={{ item.md5 }}" alt="{{ item.title }}" title="{{ item.title }}">
+                            <i class="fa fa-clock-o">
+                            </i>{{ item.page_time }}
+                        </a></div>
+                </div>
+            </li>
+        </div>
+    {% endfor %}
+
+</body>
+</html>
